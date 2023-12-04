@@ -1,0 +1,72 @@
+
+Master.guess(6-letters-long-string word)
+--> return -1 if word is not from words
+--> return the number of matched count
+
+class Solution {
+    public void findSecretWord(String[] words, Master master) {
+        (validation of null value or empty)
+        if (words == null || words.length == 0) {
+            return;
+        }
+
+        // if there is only 1 word in words --> guess and return
+        if (words.length == 1) {
+            master.guess(words[0]);
+            return;
+        }
+
+        // get the start and end index
+        int end = words.length - 1;
+        int start = 0;
+
+        // strategy: move from both size start++ and end--
+        while (start <= end) {
+
+            // get the start word as index 0
+            int word = master.guess(words[start]);
+
+            // if match = 6 --> word found
+            if (word == 6) {
+                return;
+
+            } else {
+                // as the word is words[start] index 0 so run from 1 to end
+                for (int j = 1; j < end; j++) {
+
+                    // instead of having a tmp String[] to save data
+                    // strategy: change place of the j and the end then end-- to eliminate it automatically
+                    if (word != match(words[0], words[j])) {
+                        String temp = words[j];
+                        words[j] = words[end];
+                        words[end] = temp;
+                        end--;
+
+                        // after change j with end --> the j = 1 is now a new value --> j-- to check that index again
+                        j--;
+                    }
+                }
+
+                // after a whole run, eliminate that word from string[] with the same strategy
+                // change first with end then end--
+                String first = words[0];
+                words[0] = words[end];
+                words[end] = first;
+                end--;
+            }
+        }
+
+        // after all the removal, the last word is the secret one --> FOUND
+    }
+
+    // get the match between 2 words
+    private int match(String s1, String s2) {
+        int count = 0;
+        for (int i = 0; i < 6; i++) {
+            if (s1.charAt(i) == s2.charAt(i)) {
+                count++;
+            }
+        }
+        return count;
+    }
+}
