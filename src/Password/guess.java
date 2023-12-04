@@ -9,7 +9,6 @@ public class guess {
     public boolean isFound;
     public int[] nums;
     public String chosen;
-    public char mid;
 
     public void start(){
         SecretKey key = new SecretKey();
@@ -21,7 +20,6 @@ public class guess {
         String str = form();
         chosen = str;
 
-        int count = 0;
         int result = 0;
         while(result != 12){
             System.out.println("Guessing... " + str);
