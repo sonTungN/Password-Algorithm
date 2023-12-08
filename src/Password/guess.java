@@ -115,15 +115,12 @@ public class guess {
     }
 
     public int order(char c){
-        if(c == 'M'){
-            return 0;
-        } else if (c == 'O'){
-            return 1;
-        } else if (c == 'C'){
-            return 2;
-        } else if (c == 'H'){
-            return 3;
+        switch (c) {
+            case 'M': return 0;
+            case 'O': return 1;
+            case 'C': return 2;
+            case 'H': return 3;
+            default: return 4;
         }
-        return 4;
     }
 }
