@@ -1,14 +1,16 @@
-package Password.MyADT.myset;
+package Password.MyADT.CustomSet;
 
-public class MySet {
-    public ListString[] hashtable;
+import Password.MyADT.CustomSet.KeyList;
+
+public class KeySet {
+    public KeyList[] hashtable;
     public int size;
     public int N;
 
-    public MySet(int size){
+    public KeySet(int size){
         N = size;
         this.size = size;
-        hashtable = new ListString[size];
+        hashtable = new KeyList[size];
     }
 
     private int hashCharacter(char c){
@@ -27,7 +29,7 @@ public class MySet {
     public boolean put(String str){
         int index = hashString(str);
         if(hashtable[index] == null){
-            hashtable[index] = new ListString();
+            hashtable[index] = new KeyList();
         }
         return hashtable[index].insert(str);
     }
@@ -50,16 +52,16 @@ public class MySet {
 
     public String[] getKeys(){
         int totalKeys = 0;
-        for(ListString list : hashtable){
+        for(KeyList list : hashtable){
             if(list != null){
                 totalKeys += list.size;
             }
         }
         String[] keys = new String[totalKeys];
         int index = 0;
-        for(ListString list : hashtable){
+        for(KeyList list : hashtable){
             if(list != null){
-                NodeString tmp = list.head;
+                KeyNode tmp = list.head;
                 while(tmp != null){
                     keys[index++] = tmp.data;
                     tmp = tmp.next;

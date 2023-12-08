@@ -5,8 +5,8 @@ public class SecretKey {
     private int counter;
 
     public SecretKey() {
-        // for the real test, your program will not know this
-        correctKey = "MMMHMMMMMMMM";
+        // for the real test, your program will not know this M O C H A
+        correctKey = "MOCAMCMCOACH";
         counter = 0;
     }
 

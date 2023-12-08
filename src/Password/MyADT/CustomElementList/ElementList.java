@@ -1,23 +1,23 @@
-package Password.MyADT.pair;
+package Password.MyADT.CustomElementList;
 
-public class ListPair<T, E> {
-    public NodePair<String, Integer> head;
+public class ElementList<T, E> {
+    public ElementNode<String, Integer> head;
     private int size;
 
-    public ListPair(){
+    public ElementList(){
         head = null;
         size = 0;
     }
 
-    public boolean insert(Pair<String, Integer> node){
+    public boolean insert(ElementPair<String, Integer> node){
         if(size == 0){
-            head = new NodePair<>(node);
+            head = new ElementNode<>(node);
             size  = 1;
             return true;
         }
 
-        NodePair<String, Integer> parent = null;
-        NodePair<String, Integer> tmp = head;
+        ElementNode<String, Integer> parent = null;
+        ElementNode<String, Integer> tmp = head;
         while(tmp != null){
             if(node.key.equals(tmp.data.key)){
                 return false;
@@ -27,13 +27,13 @@ public class ListPair<T, E> {
         }
 
         assert parent != null;
-        parent.next = new NodePair<>(node);
+        parent.next = new ElementNode<>(node);
         size++;
         return true;
     }
 
-    public Pair<String, Integer> get(String key){
-        NodePair<String, Integer> tmp = head;
+    public ElementPair<String, Integer> get(String key){
+        ElementNode<String, Integer> tmp = head;
         while(tmp != null){
             if(tmp.data.key.equals(key)){
                 return tmp.data;
@@ -48,8 +48,8 @@ public class ListPair<T, E> {
             return false;
         }
 
-        NodePair<String, Integer> parent = null;
-        NodePair<String, Integer> tmp = head;
+        ElementNode<String, Integer> parent = null;
+        ElementNode<String, Integer> tmp = head;
         while(tmp != null){
             if(tmp.data.key.equals(key)){
                 if(tmp == head){

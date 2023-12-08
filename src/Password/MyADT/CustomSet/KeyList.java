@@ -1,23 +1,23 @@
-package Password.MyADT.myset;
+package Password.MyADT.CustomSet;
 
-public class ListString {
-    public NodeString head;
+public class KeyList {
+    public KeyNode head;
     public int size;
 
-    public ListString(){
+    public KeyList(){
         head = null;
         size = 0;
     }
 
     public boolean insert(String str){
         if(size == 0){
-            head = new NodeString(str);
+            head = new KeyNode(str);
             size = 1;
             return true;
         }
 
-        NodeString parent = null;
-        NodeString tmp = head;
+        KeyNode parent = null;
+        KeyNode tmp = head;
         while(tmp != null){
             if(str.equals(tmp.data)){
                 return false;
@@ -27,7 +27,7 @@ public class ListString {
             tmp = tmp.next;
         }
         assert parent != null;
-        parent.next = new NodeString(str);
+        parent.next = new KeyNode(str);
         size++;
         return true;
     }
@@ -37,8 +37,8 @@ public class ListString {
             return false;
         }
 
-        NodeString parent = null;
-        NodeString tmp = head;
+        KeyNode parent = null;
+        KeyNode tmp = head;
         while(tmp != null){
             if(str.equals(tmp.data)){
                 if(tmp == head){
@@ -62,7 +62,7 @@ public class ListString {
             return false;
         }
 
-        NodeString tmp = head;
+        KeyNode tmp = head;
         while(tmp != null){
             if(str.equals(tmp.data)){
                 return true;
