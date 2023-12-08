@@ -1,11 +1,11 @@
 package Password;
 
-import Password.MyADT.MyHashMap;
+import Password.MyADT.CustomHashMap;
 
 import java.util.HashMap;
 
 public class guess {
-    public HashMap<String, Integer> candidates;
+    public CustomHashMap candidates;
     public boolean isFound;
     public int[] nums;
     public String chosen;
@@ -13,7 +13,7 @@ public class guess {
     public void start(){
         SecretKey key = new SecretKey();
         isFound = false;
-        candidates = new HashMap<>(16);
+        candidates = new CustomHashMap(16);
         nums = new int[5];
         chosen = "";
         setup(key);
