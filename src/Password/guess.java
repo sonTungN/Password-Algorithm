@@ -4,20 +4,15 @@ import Password.MyADT.CustomHashMap;
 // import java.util.HashMap;
 
 public class guess {
-    public CustomHashMap candidates;
-    public boolean isFound;
-    public int[] nums;
+    CustomHashMap candidates = new CustomHashMap(16);
+    static boolean isFound = false;
+    static int[] nums = new int[5];
     public String chosen;
 
     public void start(){
         SecretKey key = new SecretKey();
-        isFound = false;
-        candidates = new CustomHashMap(16);
-        nums = new int[5];
-        chosen = "";
         setup(key);
         String str = form();
-        chosen = str;
 
         int result = 0;
         while(result != 12){
@@ -114,7 +109,7 @@ public class guess {
             nums[i] = key.guess(str);
             System.out.println("Guessing... " + str);
             count += nums[i];
-            if (count == 12) break; 
+            if (count == 12) return; 
         }
         nums[4] = 12 - count;
     }
