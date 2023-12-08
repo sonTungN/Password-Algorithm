@@ -1,8 +1,7 @@
 package Password;
 
 import Password.MyADT.CustomHashMap;
-
-import java.util.HashMap;
+// import java.util.HashMap;
 
 public class guess {
     public CustomHashMap candidates;
@@ -108,15 +107,16 @@ public class guess {
     }
 
     public void setup(SecretKey key){
-        String str = "MMMMMMMMMMMM";
-        nums[0] = key.guess(str);
-        str = "OOOOOOOOOOOO";
-        nums[1] = key.guess(str);
-        str = "CCCCCCCCCCCC";
-        nums[2] = key.guess(str);
-        str = "HHHHHHHHHHHH";
-        nums[3] = key.guess(str);
-        nums[4] = 12 - nums[0] - nums[1] - nums[2] - nums[3];
+        int count = 0;
+        String chars = "MOCHA";
+        for (int i = 0; i < 4; ++i) { // loop through n - 1 times
+            String str = Character.toString(chars.charAt(i)).repeat(12);
+            nums[i] = key.guess(str);
+            System.out.println("Guessing... " + str);
+            count += nums[i];
+            if (count == 12) break; 
+        }
+        nums[4] = 12 - count;
     }
 
     public int order(char c){
