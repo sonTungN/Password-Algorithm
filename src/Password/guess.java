@@ -4,7 +4,8 @@ import Password.MyADT.CustomHashMap;
 // import java.util.HashMap;
 
 public class guess {
-    CustomHashMap candidates = new CustomHashMap(16);
+    final static int LENGTH = 12;
+    CustomHashMap candidates = new CustomHashMap(LENGTH);
     static boolean isFound = false;
     static int[] nums = new int[5];
     public String chosen;
@@ -15,7 +16,7 @@ public class guess {
         String str = form();
 
         int result = 0;
-        while(result != 12){
+        while(result != LENGTH){
             System.out.println("Guessing... " + str);
             result = key.guess(str);
             candidates.put(str, result);
@@ -105,13 +106,13 @@ public class guess {
         int count = 0;
         String chars = "MOCHA";
         for (int i = 0; i < 4; ++i) { // loop through n - 1 times
-            String str = Character.toString(chars.charAt(i)).repeat(12);
+            String str = Character.toString(chars.charAt(i)).repeat(LENGTH);
             nums[i] = key.guess(str);
             System.out.println("Guessing... " + str);
             count += nums[i];
-            if (count == 12) return; 
+            if (count == LENGTH) return; 
         }
-        nums[4] = 12 - count;
+        nums[4] = LENGTH - count;
     }
 
     public int order(char c){

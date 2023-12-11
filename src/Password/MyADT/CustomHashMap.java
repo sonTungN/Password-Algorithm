@@ -6,7 +6,7 @@ import Password.MyADT.CustomElementList.ElementPair;
 
 public class CustomHashMap {
     public int N;
-    public ElementList[] hashtable;
+    public static ElementList<String, Integer>[] hashtable;
     KeySet keys;
 
     public CustomHashMap(int size){
@@ -35,7 +35,7 @@ public class CustomHashMap {
     public boolean put(ElementPair<String, Integer> element){
         int index = hashString(element.key);
         if(hashtable[index] == null){
-            hashtable[index] = new ElementList();
+            hashtable[index] = new ElementList<>();
         }
         boolean isValid = hashtable[index].insert(element);
         if(isValid){

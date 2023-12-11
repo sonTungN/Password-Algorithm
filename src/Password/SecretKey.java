@@ -6,12 +6,12 @@ public class SecretKey {
 
     public SecretKey() {
         // for the real test, your program will not know this M O C H A
-        correctKey = "MMMMMMMMMMMO";
+        correctKey = "MMMMMCCMMMMO";
         counter = 0;
     }
 
     public int guess(String guessedKey) {
-        counter++;
+        ++counter;
         // validation
         if (guessedKey.length() != correctKey.length()) {
             return -1;
