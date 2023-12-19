@@ -33,7 +33,5 @@ public class SecretKey {
         return matched;
     }
 
-    public static void main(String[] args) {
-        new SecretKeyGuesser().start();
-    }
+    public static void main(String[] args) { new SecretKeyGuesser().start(); }
 }
