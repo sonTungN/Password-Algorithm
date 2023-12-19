@@ -9,7 +9,6 @@ public class SecretKeyGuesser {
 
     CustomHashMap candidates;
     int[] counters;
-//    String current;
     String token;
 
     public void start(){
@@ -20,8 +19,6 @@ public class SecretKeyGuesser {
 
         setup(key);
 
-//        String token = String.valueOf(form());
-//        current = token;
         token = String.valueOf(form());
 
         int matched = 0;
@@ -42,7 +39,6 @@ public class SecretKeyGuesser {
         permute(tokens, stored, used, 0);
 
         SUCCESS = false;
-//        return current;
         return token;
     }
 
