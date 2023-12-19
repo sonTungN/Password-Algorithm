@@ -3,91 +3,80 @@ package Password;
 import Password.MyADT.CustomHashMap;
 
 public class SecretKeyGuesser {
-    public CustomHashMap candidates;
-    public boolean isFound;
-    public int[] nums;
-    public String chosen;
+    final int LENGTH = 12;
+    CustomHashMap candidates;
+    int[] counters;
+    String current;
+    boolean SUCCESS;
 
     public void start(){
         SecretKey key = new SecretKey();
-        isFound = false;
-        candidates = new CustomHashMap(16);
-        nums = new int[5];
-        chosen = "";
+        candidates = new CustomHashMap(20);
+        counters = new int[5];
+        SUCCESS = false;
         setup(key);
-        String str = form();
-        chosen = str;
 
-        int result = 0;
-        while(result != 12){
-            System.out.println("Guessing... " + str);
-            result = key.guess(str);
-            candidates.put(str, result);
-            str = next(str);
+        String token = String.valueOf(form());
+        current = token;
+
+        int matched = 0;
+        while(matched != LENGTH){
+            matched = key.guess(token);
+            candidates.put(token, matched);
+
+            System.out.println("Guessing....." + token);
+
+            token = next(token);
         }
-        System.out.println("I found the secret key. It is " + str);
+        System.out.println("I found the secret key. It is " + token);
     }
 
-    public String next(String current){
-        char[] c = current.toCharArray();
-        char[] tmp = new char[c.length];
-        boolean[] taken = new boolean[c.length];
-        permutated(c, taken, tmp, 0);
-        isFound = false;
-        return chosen;
+    public String next(String str){
+        char[] tokens = str.toCharArray();
+        char[] stored = new char[tokens.length];
+        boolean[] used = new boolean[stored.length];
+        permute(tokens, stored, used, 0);
+
+        SUCCESS = false;
+        return current;
     }
 
-    public void process(String candidate){
-        for(String s : candidates.keySet()){
-            if(isMatched(s, candidate) != candidates.get(s)){
-                return;
-            }
-        }
-        chosen = candidate;
-        isFound = true;
-    }
-
-    public String form(){
-        String result = "";
-        result += "M".repeat(nums[0]);
-        result += "O".repeat(nums[1]);
-        result += "C".repeat(nums[2]);
-        result += "H".repeat(nums[3]);
-        result += "A".repeat(nums[4]);
-        return result;
-    }
-
-    public void permutated(char[] input, boolean[] taken, char[] current, int index){
-        if(isFound){
+    public void permute(char[] tokens, char[] stored, boolean[] used, int curr_index){
+        if(SUCCESS){
             return;
         }
 
-        if(index == input.length){
-            process(String.valueOf(current));
+        if(curr_index == tokens.length){
+            process(String.valueOf(stored));
             return;
         }
 
         boolean[] duplicate = new boolean[5];
-        for(int i = 0; i < input.length; i++){
-//            if (taken[i] || (i > 0 && input[i] == input[i - 1] && !taken[i - 1])) {
-//                continue;
-//            }
-            if(taken[i]){
-                continue;
-            }
-            if(duplicate[order(input[i])]){
-                continue;
-            }
-            duplicate[order(input[i])] = true;
-            current[index] = input[i];
-            taken[i] = true;
+        for(int i = 0; i < tokens.length; i++){
+            if(used[i] || duplicate[valueOf(tokens[i])]) continue;
 
-            permutated(input, taken, current, index + 1);
-            taken[i] = false;
+            duplicate[valueOf(tokens[i])] = true;
+
+            stored[curr_index] = tokens[i];
+            used[i] = true;
+
+            permute(tokens, stored, used, curr_index + 1);
+
+            used[i] = false;
         }
     }
 
-    public int isMatched(String str, String another){
+    public void process(String stored){
+        for(String s : candidates.keySet()){
+            if(compare(stored, s) != candidates.get(s)){
+                return;
+            }
+        }
+        SUCCESS = true;
+        current = stored;
+    }
+
+    public int compare(String str, String another){
         if(str.length() != another.length()){
             return -1;
         }
@@ -105,28 +94,48 @@ public class SecretKeyGuesser {
         return match;
     }
 
-    public void setup(SecretKey key){
-        String str = "MMMMMMMMMMMM";
-        nums[0] = key.guess(str);
-        str = "OOOOOOOOOOOO";
-        nums[1] = key.guess(str);
-        str = "CCCCCCCCCCCC";
-        nums[2] = key.guess(str);
-        str = "HHHHHHHHHHHH";
-        nums[3] = key.guess(str);
-        nums[4] = 12 - nums[0] - nums[1] - nums[2] - nums[3];
+    public StringBuilder form(){
+        StringBuilder str = new StringBuilder();
+        for(int i = 0; i < counters.length; i++){
+            str.append(Character.toString(toChar(i)).repeat(counters[i]));
+        }
+        return str;
     }
 
-    public int order(char c){
-        if(c == 'M'){
-            return 0;
-        } else if (c == 'O'){
-            return 1;
-        } else if (c == 'C'){
-            return 2;
-        } else if (c == 'H'){
-            return 3;
+    public void setup(SecretKey key){
+        int count = 0;
+        String chars = "MOCHA";
+        for (int i = 0; i < 4; i++) {
+            if (count == LENGTH) return;
+
+            String token = Character.toString(chars.charAt(i)).repeat(LENGTH);
+            counters[i] = key.guess(token);
+            count += counters[i];
+
+            System.out.println("Guessing....." + token);
         }
-        return 4;
+        counters[4] = LENGTH - count;
+    }
+
+    public int valueOf(char c) {
+        return switch (c) {
+            case 'M' -> 0;
+            case 'O' -> 1;
+            case 'C' -> 2;
+            case 'H' -> 3;
+            case 'A' -> 4;
+            default -> -1;
+        };
+    }
+
+    public char toChar(int value){
+        return switch (value){
+            case 0 -> 'M';
+            case 1 -> 'O';
+            case 2 -> 'C';
+            case 3 -> 'H';
+            case 4 -> 'A';
+            default -> throw new IllegalStateException("Unexpected value: " + value);
+        };
     }
 }
