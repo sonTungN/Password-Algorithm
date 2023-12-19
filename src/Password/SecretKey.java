@@ -6,7 +6,7 @@ public class SecretKey {
 
     public SecretKey() {
         // for the real test, your program will not know this M O C H A
-        correctKey = "MOCAMCMCOACH";
+        correctKey = "MCHOACAHCMAO";
         counter = 0;
     }
 
@@ -33,7 +33,5 @@ public class SecretKey {
         return matched;
     }
 
-    public static void main(String[] args) {
-        new guess().start();
-    }
+    public static void main(String[] args) { new SecretKeyGuesser().start(); }
 }
