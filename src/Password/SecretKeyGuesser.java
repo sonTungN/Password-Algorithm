@@ -3,9 +3,12 @@ package Password;
 import Password.MyADT.CustomHashMap;
 
 public class SecretKeyGuesser {
+    // Initialize HINT and LENGTH of the key
     final String HINT = "MOCHA";
     final int LENGTH = 12;
-    boolean SUCCESS;
+
+    // STOP the permute(...) method when 1 token has been processed in process()
+    boolean STOP;
 
     CustomHashMap candidates;
     int[] counters;
@@ -15,7 +18,7 @@ public class SecretKeyGuesser {
         SecretKey key = new SecretKey();
         candidates = new CustomHashMap(20);
         counters = new int[HINT.length()];
-        SUCCESS = false;
+        STOP = false;
 
         setup(key);
 
@@ -38,14 +41,12 @@ public class SecretKeyGuesser {
         boolean[] used = new boolean[stored.length];
         permute(tokens, stored, used, 0);
 
-        SUCCESS = false;
+        STOP = false;
         return token;
     }
 
     public void permute(char[] tokens, char[] stored, boolean[] used, int curr_index){
-        if(SUCCESS){
-            return;
-        }
+        if(STOP) return;
 
         if(curr_index == tokens.length){
             process(String.valueOf(stored));
@@ -71,7 +72,7 @@ public class SecretKeyGuesser {
         for(String s : candidates.keySet()){
             if(compare(stored, s) != candidates.get(s)) return;
         }
-        SUCCESS = true;
+        STOP = true;
         token = stored;
     }
 
