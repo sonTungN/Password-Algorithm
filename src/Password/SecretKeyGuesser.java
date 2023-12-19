@@ -3,42 +3,47 @@ package Password;
 import Password.MyADT.CustomHashMap;
 
 public class SecretKeyGuesser {
+    final String HINT = "MOCHA";
     final int LENGTH = 12;
+    boolean SUCCESS;
+
     CustomHashMap candidates;
     int[] counters;
-    String current;
-    boolean SUCCESS;
+//    String current;
+    String token;
 
     public void start(){
         SecretKey key = new SecretKey();
         candidates = new CustomHashMap(20);
-        counters = new int[5];
+        counters = new int[HINT.length()];
         SUCCESS = false;
+
         setup(key);
 
-        String token = String.valueOf(form());
-        current = token;
+//        String token = String.valueOf(form());
+//        current = token;
+        token = String.valueOf(form());
 
         int matched = 0;
         while(matched != LENGTH){
-            matched = key.guess(token);
-            candidates.put(token, matched);
-
             System.out.println("Guessing....." + token);
 
-            token = next(token);
+            matched = key.guess(token);
+            candidates.put(token, matched);
+            token = next();
         }
         System.out.println("I found the secret key. It is " + token);
     }
 
-    public String next(String str){
-        char[] tokens = str.toCharArray();
+    public String next(){
+        char[] tokens = token.toCharArray();
         char[] stored = new char[tokens.length];
         boolean[] used = new boolean[stored.length];
         permute(tokens, stored, used, 0);
 
         SUCCESS = false;
-        return current;
+//        return current;
+        return token;
     }
 
     public void permute(char[] tokens, char[] stored, boolean[] used, int curr_index){
@@ -51,7 +56,7 @@ public class SecretKeyGuesser {
             return;
         }
 
-        boolean[] duplicate = new boolean[5];
+        boolean[] duplicate = new boolean[HINT.length()];
         for(int i = 0; i < tokens.length; i++){
             if(used[i] || duplicate[valueOf(tokens[i])]) continue;
 
@@ -68,25 +73,20 @@ public class SecretKeyGuesser {
 
     public void process(String stored){
         for(String s : candidates.keySet()){
-            if(compare(stored, s) != candidates.get(s)){
-                return;
-            }
+            if(compare(stored, s) != candidates.get(s)) return;
         }
         SUCCESS = true;
-        current = stored;
+        token = stored;
     }
 
     public int compare(String str, String another){
-        if(str.length() != another.length()){
-            return -1;
-        }
+        if(str.length() != another.length()) return -1;
 
         int match = 0;
         for(int i = 0; i < str.length(); i++){
             char c = str.charAt(i);
-            if (c != 'M' && c != 'O' && c != 'C' && c != 'H' && c != 'A') {
-                return -1;
-            }
+            if (c != 'M' && c != 'O' && c != 'C' && c != 'H' && c != 'A') return -1;
+
             if(c == another.charAt(i)){
                 match++;
             }
@@ -105,7 +105,7 @@ public class SecretKeyGuesser {
     public void setup(SecretKey key){
         int count = 0;
         String chars = "MOCHA";
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < HINT.length() - 1; i++) {
             if (count == LENGTH) return;
 
             String token = Character.toString(chars.charAt(i)).repeat(LENGTH);
