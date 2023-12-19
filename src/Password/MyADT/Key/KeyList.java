@@ -71,24 +71,4 @@ public class KeyList {
         }
         return false;
     }
-
-    /**
-     * To check if the KeySet contains that key.
-     * @param key The search key.
-     * @return boolean Return true if key is found, false if no key is found.
-     */
-    public boolean contains(String key){
-        if(size == 0){
-            return false;
-        }
-
-        KeyNode tmp = head;
-        while(tmp != null){
-            if(key.equals(tmp.data)){
-                return true;
-            }
-            tmp = tmp.next;
-        }
-        return false;
-    }
 }
