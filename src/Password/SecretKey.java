@@ -34,6 +34,6 @@ public class SecretKey {
     }
 
     public static void main(String[] args) {
-        new guess().start();
+        new SecretKeyGuesser().start();
     }
 }

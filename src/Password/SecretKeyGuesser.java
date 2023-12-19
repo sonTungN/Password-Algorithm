@@ -2,9 +2,7 @@ package Password;
 
 import Password.MyADT.CustomHashMap;
 
-import java.util.HashMap;
-
-public class guess {
+public class SecretKeyGuesser {
     public CustomHashMap candidates;
     public boolean isFound;
     public int[] nums;

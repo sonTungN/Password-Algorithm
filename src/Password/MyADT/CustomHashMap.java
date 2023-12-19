@@ -1,17 +1,17 @@
 package Password.MyADT;
 
-import Password.MyADT.CustomSet.KeySet;
-import Password.MyADT.CustomElementList.ElementList;
-import Password.MyADT.CustomElementList.ElementPair;
+import Password.MyADT.Key.KeySet;
+import Password.MyADT.Element.Chain;
+import Password.MyADT.Element.Pair;
 
 public class CustomHashMap {
     public int N;
-    public ElementList[] hashtable;
+    public Chain[] hashtable;
     KeySet keys;
 
     public CustomHashMap(int size){
         N = size;
-        hashtable = new ElementList[size];
+        hashtable = new Chain[size];
         keys = new KeySet(size);
     }
 
@@ -32,10 +32,10 @@ public class CustomHashMap {
         return keys.getKeys();
     }
 
-    public boolean put(ElementPair<String, Integer> element){
+    public boolean put(Pair<String, Integer> element){
         int index = hashString(element.key);
         if(hashtable[index] == null){
-            hashtable[index] = new ElementList();
+            hashtable[index] = new Chain();
         }
         boolean isValid = hashtable[index].insert(element);
         if(isValid){
@@ -45,7 +45,7 @@ public class CustomHashMap {
     }
 
     public boolean put(String key, Integer value){
-        return put(new ElementPair<>(key, value));
+        return put(new Pair<>(key, value));
     }
 
     public Integer get(String key){
@@ -53,7 +53,7 @@ public class CustomHashMap {
         if(hashtable[index] == null){
             return null;
         }
-        ElementPair<String, Integer> element = hashtable[index].get(key);
+        Pair<String, Integer> element = hashtable[index].get(key);
         if(element == null){
             return null;
         }

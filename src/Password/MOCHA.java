@@ -15,15 +15,12 @@ public class MOCHA {
         for(int j = i; j < nums.size(); j++){
             System.out.print("Swap value " + i + " and " + j + " is: " + nums.get(i) + " " + nums.get(j) + ": ");
             int tmp = nums.get(i);
-//            System.out.println("Before 1: " + "num[i] = " + nums.get(i) + " num[j] = " + nums.get(j));
             nums.set(i, nums.get(j));
             nums.set(j, tmp);
             for(Integer in : nums){
                 System.out.print(in + " ");
             }
             System.out.println();
-//            System.out.println("Before 1: " + "num[i] = " + nums.get(i) + " num[j] = " + nums.get(j));
-//            System.out.println("Before perm: " + i + ", i =  " + i + ", j = " + j);
             perm(nums, i + 1);
 
             System.out.print("Swap value " + i + " and " + j + " is: " + nums.get(i) + " " + nums.get(j) + ": ");

@@ -1,6 +1,4 @@
-package Password.MyADT.CustomSet;
-
-import Password.MyADT.CustomSet.KeyList;
+package Password.MyADT.Key;
 
 public class KeySet {
     public KeyList[] hashtable;
