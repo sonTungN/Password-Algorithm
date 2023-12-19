@@ -102,16 +102,4 @@ public class CustomHashMap {
         }
         return element.value;
     }
-
-    public boolean remove(String key){
-        int index = hashString(key);
-        if(hashtable[index] == null){
-            return false;
-        }
-        boolean isValid = hashtable[index].remove(key);
-        if(isValid){
-            keys.remove(key);
-        }
-        return isValid;
-    }
 }
