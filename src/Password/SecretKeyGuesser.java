@@ -192,8 +192,13 @@ public class SecretKeyGuesser {
             // Compare the M.., O.., C.., H.., A.. to the CORRECT KEY and store in counters[]
             String token = Character.toString(chars.charAt(i)).repeat(LENGTH);
 
-            counters[i] = key.guess(token);
             System.out.println("Guessing....." + token);
+            counters[i] = key.guess(token);
+
+            if(counters[i] == LENGTH){
+                System.out.println("I found the secret key. It is " + token);
+                System.exit(0);
+            }
 
             count += counters[i];
         }
