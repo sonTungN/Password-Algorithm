@@ -5,7 +5,7 @@ public class SecretKey {
     private int counter;
 
     public SecretKey() {
-        correctKey = "MMMMMMMMMMMK";
+        correctKey = "MOCHAMOHCAMA";
         counter = 0;
     }
     public void validateKey(){
@@ -13,7 +13,7 @@ public class SecretKey {
             char check = correctKey.charAt(i);
             if (check != 'M' && check != 'O' && check != 'C' && check != 'H' && check != 'A') {
                 System.out.println("Unexpected tokens in KEY: " + check + " at [" + i + "].");
-                System.exit(1);
+                System.exit(0);
             }
         }
     }

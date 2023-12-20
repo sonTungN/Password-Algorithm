@@ -103,8 +103,13 @@ public class SecretKeyGuesser {
             if (count == LENGTH) return;
             String token = Character.toString(chars.charAt(i)).repeat(LENGTH);
 
-            counters[i] = key.guess(token);
             System.out.println("Guessing....." + token);
+            counters[i] = key.guess(token);
+
+            if(counters[i] == LENGTH){
+                System.out.println("I found the secret key. It is " + token);
+                System.exit(0);
+            }
 
             count += counters[i];
         }
