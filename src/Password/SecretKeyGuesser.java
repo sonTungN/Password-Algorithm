@@ -29,7 +29,8 @@ public class SecretKeyGuesser {
     String token;
 
     /**
-     * Start with this method.
+     * Start the program with this method.
+     * Guessing key is all covered in this start().
      */
     public void start(){
         SecretKey key = new SecretKey();
@@ -65,11 +66,12 @@ public class SecretKeyGuesser {
             Stored the tokens into the map with (Key, Value) is the (token, matched)
              */
             candidates.put(token, matched);
-            System.out.println("ADD " + token + ", " + matched);
 
             // After the first guess(), go for the next token using the PERMUTATION idea
             token = next();
         }
+
+        // Print out the result
         System.out.println("I found the secret key. It is " + token);
     }
 
@@ -112,7 +114,6 @@ public class SecretKeyGuesser {
             process(String.valueOf(stored));
             return;
         }
-
         /*
             Because it is the UNIQUE problem, duplicated is initialized to solve this problem
             Idea: Mark the used value as true
@@ -160,12 +161,15 @@ public class SecretKeyGuesser {
      * @return int Return the number of matching characters between 2 strings.
      */
     public int compare(String s1, String s2){
-        if(s1.length() != s2.length()) return -1;
+        if(s1.length() != s2.length())
+            throw new IllegalArgumentException("Two strings should have the same length");
 
         int match = 0;
         for(int i = 0; i < s1.length(); i++){
             char c = s1.charAt(i);
-            if (c != 'M' && c != 'O' && c != 'C' && c != 'H' && c != 'A') return -1;
+
+            if(valueOf(c) == -1)
+                throw new IllegalArgumentException("Unexpected char: " + c);
 
             if(c == s2.charAt(i)){
                 match++;
@@ -175,9 +179,9 @@ public class SecretKeyGuesser {
     }
 
     /**
-     * Method to get the values of the counters[5] for the first token generation in setup().
+     * Method to get the values for the counters[5] to generate the first token in setup().
      *
-     * @param key
+     * @param key The correct key from class `SecretKey`
      */
     public void init(SecretKey key){
         int count = 0;
@@ -197,6 +201,13 @@ public class SecretKeyGuesser {
         counters[4] = LENGTH - count;
     }
 
+    /**
+     * Based on the counters[5], generate the first token in the order M O C H A, each character is repeated correspond
+     * to the value of the counters [0] [1] [2] [3] [4].
+     *
+     * @return StringBuilder Return a string builder instead of string.
+     * REASON: Each time += str --> They create a new string which consumes spaces.
+     */
     public StringBuilder setup(){
         StringBuilder str = new StringBuilder();
         for(int i = 0; i < counters.length; i++){
@@ -205,6 +216,12 @@ public class SecretKeyGuesser {
         return str;
     }
 
+    /**
+     * Method to get the value of char M O C H A is 0 1 2 3 4 respectively.
+     *
+     * @param c Char wanted to get the value
+     * @return int If the value is valid, return its value. If not, return -1.
+     */
     public int valueOf(char c) {
         return switch (c) {
             case 'M' -> 0;
@@ -216,6 +233,12 @@ public class SecretKeyGuesser {
         };
     }
 
+    /**
+     * Method to convert the value to its correspond character.
+     *
+     * @param value Value of the char.
+     * @return char The correspond character to the value.
+     */
     public char toChar(int value){
         return switch (value){
             case 0 -> 'M';

@@ -6,11 +6,22 @@ public class SecretKey {
 
     public SecretKey() {
         // for the real test, your program will not know this M O C H A
-        correctKey = "MMMMMMMMMMMM";
+        correctKey = "MMMMMMMMMMMK";
         counter = 0;
+    }
+    public void validateKey(){
+        for(int i = 0; i < correctKey.length(); i++){
+            char check = correctKey.charAt(i);
+            if (check != 'M' && check != 'O' && check != 'C' && check != 'H' && check != 'A') {
+                System.out.println("Unexpected tokens in KEY: " + check + " at [" + i + "].");
+                System.exit(1);
+            }
+        }
     }
 
     public int guess(String guessedKey) {
+        validateKey();
+
         counter++;
         // validation
         if (guessedKey.length() != correctKey.length()) {
