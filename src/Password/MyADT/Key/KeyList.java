@@ -1,8 +1,5 @@
 package Password.MyADT.Key;
 
-/**
- * Create KeyList to handle the collisions using Separate Chaining Hashing when using the KeySet.
- */
 public class KeyList {
     public KeyNode head;
     public int size;
@@ -12,12 +9,6 @@ public class KeyList {
         size = 0;
     }
 
-    /**
-     * Insert the key into the KeySet as the corresponding element is inserted.
-     *
-     * @param key The String key of the element
-     * @return boolean Return true if there is no duplicate, and false if a duplicate is found.
-     */
     public boolean insert(String key){
         if(size == 0){
             head = new KeyNode(key);
@@ -41,12 +32,6 @@ public class KeyList {
         return true;
     }
 
-    /***
-     * Remove the key from the KeySet as the corresponding element is removed.
-     *
-     * @param key The key of the removed element.
-     * @return boolean Return true if removed successfully, and false when size == 0 or failed.
-     */
     public boolean remove(String key){
         if(size == 0){
             return false;

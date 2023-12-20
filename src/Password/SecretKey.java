@@ -5,7 +5,6 @@ public class SecretKey {
     private int counter;
 
     public SecretKey() {
-        // for the real test, your program will not know this M O C H A
         correctKey = "MMMMMMMMMMMK";
         counter = 0;
     }
@@ -23,7 +22,6 @@ public class SecretKey {
         validateKey();
 
         counter++;
-        // validation
         if (guessedKey.length() != correctKey.length()) {
             return -1;
         }

@@ -1,8 +1,5 @@
 package Password.MyADT.Element;
 
-/**
- * LinkedList to handle the collisions in HashMap with Separate Chaining Hashing.
- */
 public class Chain<T, E> {
     public Node<String, Integer> head;
     private int size;
@@ -12,12 +9,6 @@ public class Chain<T, E> {
         size = 0;
     }
 
-    /**
-     * Inserts a new node into the HashMap if no node with the same key exists.
-     *
-     * @param element The pair of String and Integer, representing key and value respectively.
-     * @return boolean Returns true if the node is inserted, false if a node with the same key exists.
-     */
     public boolean insert(Pair<String, Integer> element){
         if(size == 0){
             head = new Node<>(element);
@@ -41,12 +32,6 @@ public class Chain<T, E> {
         return true;
     }
 
-    /**
-     * Get the data (value) of the element with respective key. If no key found, return null.
-     *
-     * @param key The key of the returned element.
-     * @return Pair<String, Integer> Return the element corresponding to the key, null if no respective key is found.
-     */
     public Pair<String, Integer> get(String key){
         Node<String, Integer> tmp = head;
         while(tmp != null){
@@ -58,12 +43,6 @@ public class Chain<T, E> {
         return null;
     }
 
-    /**
-     * Remove the Node of the element from the list with the corresponding key.
-     *
-     * @param key The key of the removed element.
-     * @return boolean Return true if the element is found and deleted successfully.
-     */
     public boolean remove(String key){
         if(size == 0){
             return false;
