@@ -4,14 +4,14 @@ import Password.MyADT.CustomHashMap;
 
 public class SecretKeyGuesser {
     // Initialize HINT and LENGTH of the key
-    final String HINT = "MOCHA";
-    final int LENGTH = 12;
+    private final String HINT = "MOCHA";
+    private final int LENGTH = 12;
 
     // STOP the permute() method when 1 token process()
-    boolean STOP;
+    private boolean STOP;
 
     // Initialize the CustomHashMap to store value
-    CustomHashMap candidates;
+    private CustomHashMap candidates;
 
     /*
     Initialize the counters to count the matched in init()
@@ -23,10 +23,10 @@ public class SecretKeyGuesser {
         KEY: MOCHAMOCHA
         --> The setup() = MMOOCCHHAA
      */
-    int[] counters;
+    private int[] counters;
 
     // Token using throughout the guessing process
-    String token;
+    private String token;
 
     /**
      * Start the program with this method.
@@ -80,7 +80,7 @@ public class SecretKeyGuesser {
      *
      * @return String (The next token to guess)
      */
-    public String next(){
+    private String next(){
         char[] tokens = token.toCharArray();
         char[] stored = new char[tokens.length];
         boolean[] used = new boolean[tokens.length];
@@ -105,7 +105,7 @@ public class SecretKeyGuesser {
      * @param used   Array of boolean to LOCKED and UNLOCKED the characters
      * @param curr_index Start from 0 and End with `tokens length`
      */
-    public void permute(char[] tokens, char[] stored, boolean[] used, int curr_index){
+    private void permute(char[] tokens, char[] stored, boolean[] used, int curr_index){
         // If 1 token is generated and process() --> Stop the recursions
         if(STOP) return;
 
@@ -144,7 +144,7 @@ public class SecretKeyGuesser {
      *
      * @param stored A permutation of the current token to find the next potential token.
      */
-    public void process(String stored){
+    private void process(String stored){
         for(String key : candidates.keySet()){
             if(compare(stored, key) != candidates.get(key)) return;
         }
@@ -160,7 +160,7 @@ public class SecretKeyGuesser {
      * @param s2 The second string
      * @return int Return the number of matching characters between 2 strings.
      */
-    public int compare(String s1, String s2){
+    private int compare(String s1, String s2){
         if(s1.length() != s2.length())
             throw new IllegalArgumentException("Two strings should have the same length");
 
@@ -183,7 +183,7 @@ public class SecretKeyGuesser {
      *
      * @param key The correct key from class `SecretKey`
      */
-    public void init(SecretKey key){
+    private void init(SecretKey key){
         int count = 0;
         String chars = "MOCHA";
         for (int i = 0; i < HINT.length() - 1; i++) {
@@ -208,7 +208,7 @@ public class SecretKeyGuesser {
      * @return StringBuilder Return a string builder instead of string.
      * REASON: Each time += str --> They create a new string which consumes spaces.
      */
-    public StringBuilder setup(){
+    private StringBuilder setup(){
         StringBuilder str = new StringBuilder();
         for(int i = 0; i < counters.length; i++){
             str.append(Character.toString(toChar(i)).repeat(counters[i]));
@@ -222,7 +222,7 @@ public class SecretKeyGuesser {
      * @param c Char wanted to get the value
      * @return int If the value is valid, return its value. If not, return -1.
      */
-    public int valueOf(char c) {
+    private int valueOf(char c) {
         return switch (c) {
             case 'M' -> 0;
             case 'O' -> 1;
@@ -239,7 +239,7 @@ public class SecretKeyGuesser {
      * @param value Value of the char.
      * @return char The correspond character to the value.
      */
-    public char toChar(int value){
+    private char toChar(int value){
         return switch (value){
             case 0 -> 'M';
             case 1 -> 'O';
