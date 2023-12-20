@@ -49,16 +49,23 @@ public class SecretKeyGuesser {
         token = String.valueOf(setup());
 
         // Count the matched if matched == LENGTH (all matched with CORRECT) --> GET THE ANSWER
+        // Else STORED it as the Value of the Element with the token is its Key
         int matched = 0;
-        while(matched != LENGTH){
+        while(true){
             System.out.println("Guessing....." + token);
 
             matched = key.guess(token);
 
-            /* The functionality of HashMap is now being used
-             Stored the tokens into the map with (Key, Value) is the (token, matched)
+            // GET THE ANSWER
+            if(matched == LENGTH){
+                break;
+            }
+            /*
+            The functionality of HashMap is now being used
+            Stored the tokens into the map with (Key, Value) is the (token, matched)
              */
             candidates.put(token, matched);
+            System.out.println("ADD " + token + ", " + matched);
 
             // After the first guess(), go for the next token using the PERMUTATION idea
             token = next();
@@ -129,30 +136,49 @@ public class SecretKeyGuesser {
         }
     }
 
-
+    /**
+     * In summary, the process() function is indeed concerned with finding a string (permutation of the current token)
+     * that has the same number of character matches in the same positions as the correct secret key.
+     * (More details will be covered in the report)
+     *
+     * @param stored A permutation of the current token to find the next potential token.
+     */
     public void process(String stored){
         for(String key : candidates.keySet()){
             if(compare(stored, key) != candidates.get(key)) return;
         }
+        // Set STOP to stop the permutation and get the stored as new potential token
         STOP = true;
         token = stored;
     }
 
-    public int compare(String str, String another){
-        if(str.length() != another.length()) return -1;
+    /**
+     * Method to compare 2 strings and get the matching element. (like the guess()).
+     *
+     * @param s1 The first string
+     * @param s2 The second string
+     * @return int Return the number of matching characters between 2 strings.
+     */
+    public int compare(String s1, String s2){
+        if(s1.length() != s2.length()) return -1;
 
         int match = 0;
-        for(int i = 0; i < str.length(); i++){
-            char c = str.charAt(i);
+        for(int i = 0; i < s1.length(); i++){
+            char c = s1.charAt(i);
             if (c != 'M' && c != 'O' && c != 'C' && c != 'H' && c != 'A') return -1;
 
-            if(c == another.charAt(i)){
+            if(c == s2.charAt(i)){
                 match++;
             }
         }
         return match;
     }
 
+    /**
+     * Method to get the values of the counters[5] for the first token generation in setup().
+     *
+     * @param key
+     */
     public void init(SecretKey key){
         int count = 0;
         String chars = "MOCHA";
