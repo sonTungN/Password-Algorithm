@@ -15,7 +15,5 @@
 
 
 ## `GitHub Repository`
-- Project: [link]()
+- Project: [https://github.com/sonTungN/Password-Algorithm.git]()
 - Documents: [link]()
-
-## Compile and Run
