@@ -28,12 +28,8 @@ public class SecretKeyGuesser {
     // Token using throughout the guessing process
     private String token;
 
-    /**
-     * Start the program with this method.
-     * Guessing key is all covered in this start().
-     */
-    public void start(){
-        SecretKey key = new SecretKey();
+    public int start(String secretKey){
+        SecretKey key = new SecretKey(secretKey);
         // Initialize the size of the HashMap
         candidates = new CustomHashMap(20);
 
@@ -53,26 +49,14 @@ public class SecretKeyGuesser {
         // Else STORED it as the Value of the Element with the token is its Key
         int matched = 0;
         while(true){
-            System.out.println("Guessing....." + token);
-
             matched = key.guess(token);
-
             // GET THE ANSWER
             if(matched == LENGTH){
-                break;
+                return matched;
             }
-            /*
-            The functionality of HashMap is now being used
-            Stored the tokens into the map with (Key, Value) is the (token, matched)
-             */
             candidates.put(token, matched);
-
-            // After the first guess(), go for the next token using the PERMUTATION idea
             token = next();
         }
-
-        // Print out the result
-        System.out.println("I found the secret key. It is " + token);
     }
 
     /**
@@ -192,11 +176,9 @@ public class SecretKeyGuesser {
             // Compare the M.., O.., C.., H.., A.. to the CORRECT KEY and store in counters[]
             String token = Character.toString(chars.charAt(i)).repeat(LENGTH);
 
-            System.out.println("Guessing....." + token);
             counters[i] = key.guess(token);
 
             if(counters[i] == LENGTH){
-                System.out.println("I found the secret key. It is " + token);
                 System.exit(0);
             }
 

@@ -4,11 +4,11 @@ public class SecretKey {
     private final String correctKey;
     private int counter;
 
-    public SecretKey() {
-        // for the real test, your program will not know this M O C H A
-        correctKey = "MMMMMMMMMMMK";
+    public SecretKey(String secretKey) {
+        correctKey = secretKey;
         counter = 0;
     }
+
     public void validateKey(){
         for(int i = 0; i < correctKey.length(); i++){
             char check = correctKey.charAt(i);
@@ -38,11 +38,28 @@ public class SecretKey {
                 matched++;
             }
         }
-        if (matched == correctKey.length()) {
-            System.out.println("Number of guesses: " + counter);
-        }
         return matched;
     }
 
-    public static void main(String[] args) { new SecretKeyGuesser().start(); }
+    public static void main(String[] args) {
+        int count = 0;
+        int[] guesses = new int[20];
+        // Random secret key to test cases
+
+
+        long start = System.currentTimeMillis();
+        while (count != 1_000_000) {
+            // random secret key
+            guesses[new SecretKeyGuesser().start(null) - 1]++; // input random key here
+            count++;
+        }
+        long end = System.currentTimeMillis();
+
+        System.out.println("Have tested " + count + " cases.");
+        System.out.println("Execution time: " + (end - start) / 1000 + " seconds");
+        for (int i = 0; i < guesses.length; i++) {
+            System.out.println(i + 1 + ": " + guesses[i] + " times");
+        }
+        
+     }
 }
