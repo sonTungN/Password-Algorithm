@@ -8,7 +8,7 @@ public class SecretKey {
         correctKey = "MOCHAMOHCAMA";
         counter = 0;
     }
-    public void validateKey(){
+    private void validateKey(){
         for(int i = 0; i < correctKey.length(); i++){
             char check = correctKey.charAt(i);
             if (check != 'M' && check != 'O' && check != 'C' && check != 'H' && check != 'A') {
