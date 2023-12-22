@@ -17,7 +17,7 @@ public class SecretKeyGuesser {
         SecretKey key = new SecretKey();
         candidates = new CustomHashMap(20);
         counters = new int[HINT.length()];
-        STOP = false;
+        STOP = false;   
 
         init(key);
         token = String.valueOf(setup());

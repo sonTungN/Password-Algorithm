@@ -5,8 +5,9 @@ public class SecretKey {
     private int counter;
 
     public SecretKey() {
-        correctKey = "MOCHAMOHCAMA";
+        correctKey = "MMMMMMMMMMMK";
         counter = 0;
+        validateKey();
     }
     private void validateKey(){
         for(int i = 0; i < correctKey.length(); i++){
@@ -19,8 +20,6 @@ public class SecretKey {
     }
 
     public int guess(String guessedKey) {
-        validateKey();
-
         counter++;
         if (guessedKey.length() != correctKey.length()) {
             return -1;
