@@ -5,7 +5,7 @@ public class SecretKey {
     private int counter;
 
     public SecretKey() {
-        correctKey = "MMMMMMMMMMMK";
+        correctKey = "MMOOOCACCHHAA";
         counter = 0;
         validateKey();
     }
@@ -22,7 +22,8 @@ public class SecretKey {
     public int guess(String guessedKey) {
         counter++;
         if (guessedKey.length() != correctKey.length()) {
-            return -1;
+            System.out.println("Unexpected Length in KEY: " + correctKey.length());
+            System.exit(0);
         }
         int matched = 0;
         for (int i = 0; i < guessedKey.length(); i++) {
