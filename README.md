@@ -1,8 +1,7 @@
 # Password-Algorithm
 
 ## `Project Descriptions`
-- _..._
-- _..._
+- _The Password Algorithm is a program to solve the 12 character length password with the character set "M, O, C, H, A"._
 - _To advance our skills learning, we have covered all the [Project Requirements](https://rmit.instructure.com/courses/131308/assignments/883729) and mostly used techniques delivered from the course._
 
 ## `Collaborators and Contribution Form`
@@ -15,7 +14,7 @@
 
 
 ## `GitHub Repository`
-- Project: [link]()
-- Documents: [link]()
+- Project: [click here](https://github.com/sonTungN/Password-Algorithm) | URL: https://github.com/sonTungN/Password-Algorithm
+- Documents: [click here](https://github.com/sonTungN/Password-Algorithm/tree/main/doc) | URL: https://github.com/sonTungN/Password-Algorithm/tree/main/doc
+- Youtube: [click here](https://youtu.be/nQ4yTnM3lus) | URL: https://youtu.be/nQ4yTnM3lus
 
-## Compile and Run

@@ -6,10 +6,11 @@ public class SecretKey {
 
     public SecretKey() {
         // for the real test, your program will not know this M O C H A
-        correctKey = "MMMMMMMMMMMK";
+        correctKey = "ACHAOCHMOCHA";
         counter = 0;
+        validateKey();
     }
-    public void validateKey(){
+    private void validateKey(){
         for(int i = 0; i < correctKey.length(); i++){
             char check = correctKey.charAt(i);
             if (check != 'M' && check != 'O' && check != 'C' && check != 'H' && check != 'A') {
@@ -20,12 +21,11 @@ public class SecretKey {
     }
 
     public int guess(String guessedKey) {
-        validateKey();
-
         counter++;
         // validation
         if (guessedKey.length() != correctKey.length()) {
-            return -1;
+            System.out.println("Unexpected Length in KEY: " + correctKey.length());
+            System.exit(0);
         }
         int matched = 0;
         for (int i = 0; i < guessedKey.length(); i++) {
