@@ -1,14 +1,12 @@
-package Password.MyADT.myset;
+package Password.MyADT.Key;
 
-public class MySet {
-    public ListString[] hashtable;
-    public int size;
+public class KeySet {
+    public KeyList[] hashtable;
     public int N;
 
-    public MySet(int size){
+    public KeySet(int size){
         N = size;
-        this.size = size;
-        hashtable = new ListString[size];
+        hashtable = new KeyList[size];
     }
 
     private int hashCharacter(char c){
@@ -24,42 +22,34 @@ public class MySet {
         return sum % N;
     }
 
-    public boolean put(String str){
-        int index = hashString(str);
+    public boolean put(String key){
+        int index = hashString(key);
         if(hashtable[index] == null){
-            hashtable[index] = new ListString();
+            hashtable[index] = new KeyList();
         }
-        return hashtable[index].insert(str);
+        return hashtable[index].insert(key);
     }
 
-    public boolean remove(String str){
-        int index = hashString(str);
+    public boolean remove(String key){
+        int index = hashString(key);
         if(hashtable[index] == null){
             return false;
         }
-        return hashtable[index].remove(str);
-    }
-
-    public boolean contains(String str){
-        int index = hashString(str);
-        if(hashtable[index] == null){
-            return false;
-        }
-        return hashtable[index].contains(str);
+        return hashtable[index].remove(key);
     }
 
     public String[] getKeys(){
         int totalKeys = 0;
-        for(ListString list : hashtable){
+        for(KeyList list : hashtable){
             if(list != null){
                 totalKeys += list.size;
             }
         }
         String[] keys = new String[totalKeys];
         int index = 0;
-        for(ListString list : hashtable){
+        for(KeyList list : hashtable){
             if(list != null){
-                NodeString tmp = list.head;
+                KeyNode tmp = list.head;
                 while(tmp != null){
                     keys[index++] = tmp.data;
                     tmp = tmp.next;

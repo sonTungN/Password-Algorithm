@@ -1,25 +1,25 @@
-package Password.MyADT.myset;
+package Password.MyADT.Key;
 
-public class ListString {
-    public NodeString head;
+public class KeyList {
+    public KeyNode head;
     public int size;
 
-    public ListString(){
+    public KeyList(){
         head = null;
         size = 0;
     }
 
-    public boolean insert(String str){
+    public boolean insert(String key){
         if(size == 0){
-            head = new NodeString(str);
+            head = new KeyNode(key);
             size = 1;
             return true;
         }
 
-        NodeString parent = null;
-        NodeString tmp = head;
+        KeyNode parent = null;
+        KeyNode tmp = head;
         while(tmp != null){
-            if(str.equals(tmp.data)){
+            if(key.equals(tmp.data)){
                 return false;
             }
 
@@ -27,20 +27,20 @@ public class ListString {
             tmp = tmp.next;
         }
         assert parent != null;
-        parent.next = new NodeString(str);
+        parent.next = new KeyNode(key);
         size++;
         return true;
     }
 
-    public boolean remove(String str){
+    public boolean remove(String key){
         if(size == 0){
             return false;
         }
 
-        NodeString parent = null;
-        NodeString tmp = head;
+        KeyNode parent = null;
+        KeyNode tmp = head;
         while(tmp != null){
-            if(str.equals(tmp.data)){
+            if(key.equals(tmp.data)){
                 if(tmp == head){
                     head = head.next;
                     size--;
@@ -52,21 +52,6 @@ public class ListString {
             }
 
             parent = tmp;
-            tmp = tmp.next;
-        }
-        return false;
-    }
-
-    public boolean contains(String str){
-        if(size == 0){
-            return false;
-        }
-
-        NodeString tmp = head;
-        while(tmp != null){
-            if(str.equals(tmp.data)){
-                return true;
-            }
             tmp = tmp.next;
         }
         return false;

@@ -1,4 +1,4 @@
-package Password.MyADT.pair;
+package Password.MyADT.Element;
 
 public class Pair<T, E> {
     public T key;

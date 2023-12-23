@@ -1,25 +1,25 @@
-package Password.MyADT.pair;
+package Password.MyADT.Element;
 
-public class ListPair<T, E> {
-    public NodePair<String, Integer> head;
+public class Chain<T, E> {
+    public Node<String, Integer> head;
     private int size;
 
-    public ListPair(){
+    public Chain(){
         head = null;
         size = 0;
     }
 
-    public boolean insert(Pair<String, Integer> node){
+    public boolean insert(Pair<String, Integer> element){
         if(size == 0){
-            head = new NodePair<>(node);
+            head = new Node<>(element);
             size  = 1;
             return true;
         }
 
-        NodePair<String, Integer> parent = null;
-        NodePair<String, Integer> tmp = head;
+        Node<String, Integer> parent = null;
+        Node<String, Integer> tmp = head;
         while(tmp != null){
-            if(node.key.equals(tmp.data.key)){
+            if(element.key.equals(tmp.data.key)){
                 return false;
             }
             parent = tmp;
@@ -27,13 +27,13 @@ public class ListPair<T, E> {
         }
 
         assert parent != null;
-        parent.next = new NodePair<>(node);
+        parent.next = new Node<>(element);
         size++;
         return true;
     }
 
     public Pair<String, Integer> get(String key){
-        NodePair<String, Integer> tmp = head;
+        Node<String, Integer> tmp = head;
         while(tmp != null){
             if(tmp.data.key.equals(key)){
                 return tmp.data;
@@ -48,8 +48,8 @@ public class ListPair<T, E> {
             return false;
         }
 
-        NodePair<String, Integer> parent = null;
-        NodePair<String, Integer> tmp = head;
+        Node<String, Integer> parent = null;
+        Node<String, Integer> tmp = head;
         while(tmp != null){
             if(tmp.data.key.equals(key)){
                 if(tmp == head){

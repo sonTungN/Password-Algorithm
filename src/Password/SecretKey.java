@@ -5,16 +5,25 @@ public class SecretKey {
     private int counter;
 
     public SecretKey() {
-        // for the real test, your program will not know this
-        correctKey = "MMMHMMMMMMMM";
+        correctKey = "MMOOOCACCHHAA";
         counter = 0;
+        validateKey();
+    }
+    private void validateKey(){
+        for(int i = 0; i < correctKey.length(); i++){
+            char check = correctKey.charAt(i);
+            if (check != 'M' && check != 'O' && check != 'C' && check != 'H' && check != 'A') {
+                System.out.println("Unexpected tokens in KEY: " + check + " at [" + i + "].");
+                System.exit(0);
+            }
+        }
     }
 
     public int guess(String guessedKey) {
         counter++;
-        // validation
         if (guessedKey.length() != correctKey.length()) {
-            return -1;
+            System.out.println("Unexpected Length in KEY: " + correctKey.length());
+            System.exit(0);
         }
         int matched = 0;
         for (int i = 0; i < guessedKey.length(); i++) {
@@ -33,7 +42,5 @@ public class SecretKey {
         return matched;
     }
 
-    public static void main(String[] args) {
-        new guess().start();
-    }
+    public static void main(String[] args) { new SecretKeyGuesser().start(); }
 }
